@@ -68,13 +68,25 @@ dados_prototipo slaveTwo;
 dados_prototipo master;
 
 //Declaração da "variável imutável" da pinagem referente ao protótipo "Master".
-const pinos_sensores masterPin = {.pinSensorAlto = 33, .pinSensorMedio = 34, .pinSensorBaixo = 35};
+const pinos_sensores masterPin = {
+  .pinSensorAlto = 33,
+  .pinSensorMedio = 34,
+  .pinSensorBaixo = 35
+};
 
 dados_prototipo esp[2] = {slaveOne, slaveTwo};
 
 void setup() {
 
   Serial.begin(115200);
+
+  //Definição de um id para o protótipo.
+  master.id = 0;
+
+  //Definição dos pinos dos sensores como receptores de dados
+  pinMode(masterPin.pinSensorAlto, INPUT);
+  pinMode(masterPin.pinSensorMedio, INPUT);
+  pinMode(masterPin.pinSensorBaixo, INPUT);
 
   //Conexão com o WiFi
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
@@ -84,20 +96,6 @@ void setup() {
     delay(300);
   }
   Serial.println();
-
-  //Configuração da data e do horário
-  configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
-  struct tm timeInfo;
-  while (!getLocalTime(&timeInfo)) {
-    Serial.println("Falha ao obter a hora. Tentando novamente...");
-    delay(1000);
-  }
-  Serial.println("Hora sincronizada com sucesso!");
-
-  //Inicialização do Firebase
-  initializeApp(aClient, app, getAuth(user_auth), processarDados, "🔐 authTask");
-  app.getApp<RealtimeDatabase>(Database);
-  Database.url(DATABASE_URL);
 
   //Definição do dispositivo como Wi-Fi Station.
   WiFi.mode(WIFI_STA);
@@ -110,6 +108,26 @@ void setup() {
 
   }
 
+  //Configuração da data e do horário
+  configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
+  struct tm timeInfo;
+  while (!getLocalTime(&timeInfo)) {
+    Serial.println("Falha ao obter a hora. Tentando novamente...");
+    delay(1000);
+  }
+  Serial.println("Hora sincronizada com sucesso!");
+
+  //Configuração do cliente SSL
+  ssl_client.setInsecure();
+  ssl_client.setConnectionTimeout(1000);
+  ssl_client.setHandshakeTimeout(5);
+
+  //Inicialização do Firebase
+  initializeApp(aClient, app, getAuth(user_auth), processarDados, "🔐 authTask");
+  app.getApp<RealtimeDatabase>(Database);
+  Database.url(DATABASE_URL);
+
+  //Função para registro de callback a partir da função de recebimento de dados.
   esp_now_register_recv_cb(esp_now_recv_cb_t(onDataRecv));
   
 
@@ -117,7 +135,7 @@ void setup() {
 
 void loop() {
 
-  master.id = 0;
+  //Definição da variável "Master" a partir das leituras de portas analógicas.
   master.nivelAlto = analogRead(masterPin.pinSensorAlto);
   master.nivelMedio = analogRead(masterPin.pinSensorMedio);
   master.nivelBaixo = analogRead(masterPin.pinSensorBaixo);
@@ -125,8 +143,10 @@ void loop() {
   //Para manter a autenticação e as tarefas assíncronas 
   app.loop();
 
+  //Verificação da conexão com o Firebase
   if(app.ready()){
 
+    //Armazenamento do valor atual de tempo
     unsigned long tempoAtual = millis();
 
     if(tempoAtual - ultimoTempoEnvio >= intervaloEnvio){
@@ -170,16 +190,16 @@ void loop() {
       json.toString(Serial, true);
       Serial.println();
 
+      //Criação de uma "string" para armazenar o arquivo ".json".
       String jsonString;
       json.toString(jsonString, true);
 
+      //Envio do arquivo para o Firebase.
       Database.set(aClient, path, jsonString);   
       
     }
     
   }
-
-  
 
   delay(500);
   
