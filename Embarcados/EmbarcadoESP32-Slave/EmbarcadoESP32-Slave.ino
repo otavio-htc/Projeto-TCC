@@ -1,15 +1,18 @@
 #include <esp_now.h>
 #include <WiFi.h>
+#include <esp_wifi.h>
 
 //Endereço de Broadcast do Receptor de dados.
 uint8_t broadcastAddress[] = {
-  0xFF,
-  0xFF,
-  0xFF,
-  0xFF,
-  0xFF,
-  0xFF
+  0xF4,
+  0x65,
+  0x0B,
+  0xE8,
+  0x3B,
+  0x64
+
 };
+
 
 //Estrutura para armazenamento dos dados recebidos pelos sensores
 typedef struct dados_prototipo{
@@ -57,9 +60,6 @@ void setup() {
   //Inicialização da porta serial.
   Serial.begin(115200);
 
-  //Definição de um id para o protótipo
-  slave.id = 1;
-
   //Definição dos pinos dos sensores como receptores de dados
   pinMode(slavePin.pinSensorAlto, INPUT);
   pinMode(slavePin.pinSensorMedio, INPUT);
@@ -92,10 +92,19 @@ void setup() {
 
 void loop() {
 
+  //Definição de um id para o protótipo
+  slave.id = 1;
+
   //Definição da variável "Slave" a partir das leituras de portas analógicas.
-  slave.nivelAlto = analogRead(slavePin.pinSensorAlto);
-  slave.nivelMedio = analogRead(slavePin.pinSensorMedio);
-  slave.nivelBaixo = analogRead(slavePin.pinSensorBaixo);
+  slave.nivelAlto = map(analogRead(slavePin.pinSensorAlto), 4095, 0, 0, 100);
+  slave.nivelMedio = map(analogRead(slavePin.pinSensorMedio), 4095, 0, 0, 100);
+  slave.nivelBaixo = map(analogRead(slavePin.pinSensorBaixo), 4095, 0, 0, 100);
+
+  Serial.println(slave.nivelAlto);
+  Serial.println(slave.nivelMedio);
+  Serial.println(slave.nivelBaixo);
+
+  esp_wifi_set_channel(11, WIFI_SECOND_CHAN_NONE);
 
   //Envio de mensagem via ESP-NOW
   esp_err_t resultado = esp_now_send(broadcastAddress, (uint8_t *) &slave, sizeof(slave));
