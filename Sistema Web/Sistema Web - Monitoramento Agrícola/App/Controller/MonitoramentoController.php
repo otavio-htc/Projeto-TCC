@@ -11,7 +11,7 @@
         {
 
 
-            $this->render('/alunos/index', 'dashboard');
+            $this->render('/index', 'dashboard');
 
         }
 

@@ -1,28 +1,65 @@
-.btn_salvar{
-    float: right;
-}
-.fa-whatsapp{
-    color: rgb(11, 104, 11);
-}
-.fa-trash-can{
-    color: #f00;
-}
-.fa-pen-to-square{
-    color: #d37801;
-}
-.tamanho_icone{
-    font-size: 15px;
-}
-.is-valid {
-    border-color: #28a745;
+:root {
+
+    --bs-body-color: #23afcb;
+    --bs-body-secondary-color: #838b90;
+    --bs-body-color-rgb: rgb(35, 175, 203);
+    --bs-body-bg: #404242;
+    --bs-body-bg-rgb: rgb(64, 66, 66);
+    --bs-secondary-color: #000000;
+    --bs-secondary-color-rgb: rgba(0, 0, 0, 0);
+    --bs-emphasis-color: #00d4ff;
+    --bs-emphasis-color-rgb: rgb(0, 212, 255);
+    --bs-border-color: #2d3b3d;
+    --bs-border-color-rgb: rgb(45, 59, 61);
+    --bs-primary: #03d3fc;
+    --bs-primary-rgb: rgb(3, 211, 252);
+    --bs-primary-text-emphasis: #00dfff;
+
+
 }
 
-.is-invalid {
-    border-color: #dc3545;
+body {
+
+    font-family: 'Changa One', sans-serif;
+
 }
 
-.icone-dashboard
-{
-    font-size: 45px;
-    color: #d37801;
+.card-body {
+
+    background-color: var(--bs-body-secondary-color);
+
+}
+
+.btn-primary {
+
+    background-color: var(--bs-body-color);
+    border-color: var(--bs-body-color);
+
+}
+
+.btn-primary:hover {
+
+    background-color: #00d4ff;
+    border-color: #00d4ff;
+
+}
+
+.nav-link {
+
+    color: var(--bs-body-color);
+
+}
+
+.nav-link:hover {
+
+    color: #fff;
+
+}
+
+button.nav-link.active {
+
+    background-color: var(--bs-body-color) !important;
+    color: #fff !important;
+    border-color: var(--bs-body-color);
+
 }

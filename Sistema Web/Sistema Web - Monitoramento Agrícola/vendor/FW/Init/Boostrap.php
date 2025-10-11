@@ -39,6 +39,7 @@
                 $action = "error404";
                 $controller->$action();
                 $rotaValida = true;
+
             }
             
         }

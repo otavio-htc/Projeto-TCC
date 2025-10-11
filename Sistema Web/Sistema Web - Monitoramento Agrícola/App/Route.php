@@ -9,23 +9,17 @@ class Route extends Boostrap
 
     public function initRoutes()
     {
-
+        
         //Não excluir a Rota abaixo
-        $routes['error-404'] = array(
+        $routes['error-404'] = [
             'route' => '/error404',
             'controller' => 'ErrorController',
             'action' => 'error404'
-        );
+        ];
 
-        $routes['dashboard_render'] = [
-            'route' => '/dashboard',
-            'controller' => 'MonitoramentoController',
-            'action' => 'dashboard'
-        ];  
-
-
-        include 'Routes/Routes_Alunos.php';
+        include 'Routes/Routes_Monitoramento.php';
 
         $this->setRoutes($routes);
+        
     }
 }

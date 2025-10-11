@@ -2,7 +2,7 @@
 
 //Carrega a Dashboard de Alunos
 $routes['dashboard_render'] = [
-    'route' => '/dashboard',
+    'route' => '/',
     'controller' => 'MonitoramentoController',
     'action' => 'dashboard'
 ];
