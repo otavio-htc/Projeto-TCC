@@ -1,22 +1,25 @@
 <!-- Aqui deve ser inserido o conteúdo que será exibido na página -->
 <div class="container-fluid">
-    
+
     <!--Ínicio da Seção para inserção dos dados do Firebase-->
     <section class="mt-4">
 
         <!--Ínicio da Área de título da Leitura dos Sensores-->
         <div class="row">
             <div class="col-12 col-lg-12">
-                <div class="title d-flex justify-content-center mt-5 mb-3">
-                    <h2>Leitura dos Sensores</h2>
+                <div class="title d-flex justify-content-center flex-column mt-5 mb-3">
+                    <h2 class="text-center">Leitura dos Sensores</h2>
+                    <div class="d-flex justify-content-center">
+                        <span id="ultimaLeitura" class="text-white fs-3"></span>
+                    </div>
                 </div>
             </div>
         </div>
         <!--Fim da Área de título da Leitura dos Sensores-->
 
         <!--Ínicio da Área de Leitura dos Sensores-->
-        <div class="row">   
-            <div class="col-12 col-md-6 col-lg-4">
+        <div class="row">
+            <div class="col-md-6 col-lg-4">
                 <div class="card">
                     <div class="card-header bg-black text-center">
                         <p><strong>Slave Um</strong></p>
@@ -24,51 +27,45 @@
                     <div class="card-body">
                         <ul class="list-group list-group-flush mb-5">
                             <li class="list-group-item text-center">
-                                <span class ="badge rounded"><strong>Superficial:</strong></span>
-                                Teste
+                                <span class="badge rounded"><strong>Superficial:</strong></span>
+                                <span id="nivelAltoSlaveUm"></span>
                             </li>
                             <li class="list-group-item text-center">
-                                <span class ="badge rounded"><strong>Intermediário:</strong></span>
-                                Teste
+                                <span class="badge rounded"><strong>Intermediário:</strong></span>
+                                <span id="nivelMedioSlaveUm"></span>
                             </li>
                             <li class="list-group-item text-center">
-                                <span class ="badge rounded"><strong>Profundo:</strong></span>
-                                Teste
+                                <span class="badge rounded"><strong>Profundo:</strong></span>
+                                <span id="nivelBaixoSlaveUm"></span>
                             </li>
                         </ul>
-                        <div class="d-flex justify-content-center">
-                            <a href="#" class="btn btn-primary">Gerar relatório individual</a>
-                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-4"> 
+            <div class="col-md-6 col-lg-4">
                 <div class="card">
                     <div class="card-header bg-black text-center">
-                        <p><strong>Master</strong></p> 
+                        <p><strong>Master</strong></p>
                     </div>
                     <div class="card-body">
                         <ul class="list-group list-group-flush mb-5">
                             <li class="list-group-item text-center">
-                                <span class ="badge rounded"><strong>Superficial:</strong></span>
-                                Teste
+                                <span class="badge rounded"><strong>Superficial:</strong></span>
+                                <span id="nivelAltoMaster"></span>
                             </li>
                             <li class="list-group-item text-center">
-                                <span class ="badge rounded"><strong>Intermediário:</strong></span>
-                                Teste
+                                <span class="badge rounded"><strong>Intermediário:</strong></span>
+                                <span id="nivelMedioMaster"></span>
                             </li>
                             <li class="list-group-item text-center">
-                                <span class ="badge rounded"><strong>Profundo:</strong></span>
-                                Teste
+                                <span class="badge rounded"><strong>Profundo:</strong></span>
+                                <span id="nivelBaixoMaster"></span>
                             </li>
                         </ul>
-                        <div class="d-flex justify-content-center">
-                            <a href="#" class="btn btn-primary">Gerar relatório individual</a>
-                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-4">
+            <div class="col-md-6 col-lg-4">
                 <div class="card">
                     <div class="card-header bg-black text-center">
                         <p><strong>Slave Dois</strong></p>
@@ -76,21 +73,18 @@
                     <div class="card-body">
                         <ul class="list-group list-group-flush mb-5">
                             <li class="list-group-item text-center">
-                                <span class ="badge rounded"><strong>Superficial:</strong></span>
-                                Teste
+                                <span class="badge rounded"><strong>Superficial:</strong></span>
+                                <span id="nivelAltoSlaveDois"></span>
                             </li>
                             <li class="list-group-item text-center">
-                                <span class ="badge rounded"><strong>Intermediário:</strong></span>
-                                Teste
+                                <span class="badge rounded"><strong>Intermediário:</strong></span>
+                                <span id="nivelMedioSlaveDois"></span>
                             </li>
                             <li class="list-group-item text-center">
-                                <span class ="badge rounded"><strong>Profundo:</strong></span>
-                                Teste
+                                <span class="badge rounded"><strong>Profundo:</strong></span>
+                                <span id="nivelBaixoSlaveDois"></span>
                             </li>
                         </ul>
-                        <div class="d-flex justify-content-center">
-                            <a href="#" class="btn btn-primary">Gerar relatório individual</a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -106,7 +100,7 @@
         <div class="row">
             <div class="col-12 col-lg-12">
                 <div class="title d-flex justify-content-center mb-3">
-                    <h2>Relatórios Gráficos</h2>
+                    <h2>Relatório Gráfico</h2>
                 </div>
             </div>
         </div>
@@ -117,90 +111,41 @@
             <div class="col-12 col-lg-12">
                 <div class="card mb-5">
                     <div class="card-header bg-black text-center">
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button 
-                                    class="nav-link active" 
-                                    data-bs-toggle="tab" 
-                                    data-bs-target="#graficoRadar" 
-                                    type="button" 
-                                    role="tab" 
-                                    aria-controls="graficoRadar" 
-                                    aria-selected="true">
-                                    Registros no Mês
-                                </button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button 
-                                    class="nav-link" 
-                                    data-bs-toggle="tab" 
-                                    data-bs-target="#graficoLinha" 
-                                    type="button" 
-                                    role="tab" 
-                                    aria-controls="graficoLinha" 
-                                    aria-selected="false">
-                                    Média de Umidade
-                                </button>
-                            </li>
-                        </ul>
+                        <span><strong>Valores de Umidade</strong></span>
                     </div>
                     <div class="card-body">
-                        <div class="tab-content">
-                            <div 
-                                class="tab-pane fade show active" 
-                                id="graficoRadar" 
-                                role="tabpanel" 
-                                aria-labelledby="home-tab" 
-                                tabindex="0">
-
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="d-flex justify-content-center mw-50">
-                                            <canvas id="graficoSlaveUmRadarMonitoramento"></canvas>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="d-flex justify-content-center mw-50">
-                                            <canvas id="graficoMasterRadarMonitoramento"></canvas>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="d-flex justify-content-center mw-50">
-                                            <canvas id="graficoSlaveDoisRadarMonitoramento"></canvas>
-                                        </div>
-                                    </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="d-flex justify-content-center">
+                                    <canvas id="graficoSlaveUmLinhaMonitoramento"></canvas>
                                 </div>
-
+                                <div class="d-flex justify-content-center mt-4 mb-3">
+                                    <button id="exportarSlaveUm" class="btn btn-primary">
+                                        Gerar relatório individual
+                                    </button>
+                                </div>
                             </div>
-                                
-                            <div 
-                                class="tab-pane fade" 
-                                id="graficoLinha" 
-                                role="tabpanel" 
-                                aria-labelledby="profile-tab" 
-                                tabindex="0">
-
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="d-flex justify-content-center mw-50">
-                                            <canvas id="graficoSlaveUmLinhaMonitoramento"></canvas>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="d-flex justify-content-center mw-50">
-                                            <canvas id="graficoMasterLinhaMonitoramento"></canvas>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="d-flex justify-content-center mw-50">
-                                            <canvas id="graficoSlaveDoisLinhaMonitoramento"></canvas>
-                                        </div>
-                                    </div>
+                            <div class="col-lg-4">
+                                <div class="d-flex justify-content-center">
+                                    <canvas id="graficoMasterLinhaMonitoramento"></canvas>
                                 </div>
-
+                                <div class="d-flex justify-content-center mt-4">
+                                    <button id="exportarMaster" class="btn btn-primary">
+                                        Gerar relatório individual
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="d-flex justify-content-center">
+                                    <canvas id="graficoSlaveDoisLinhaMonitoramento"></canvas>
+                                </div>
+                                <div class="d-flex justify-content-center mt-4">
+                                    <button id="exportarSlaveDois" class="btn btn-primary">
+                                        Gerar relatório individual
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                        
                     </div>
                 </div>
             </div>

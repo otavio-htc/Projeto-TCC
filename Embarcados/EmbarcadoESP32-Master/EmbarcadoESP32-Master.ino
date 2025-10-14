@@ -26,6 +26,9 @@ const char* ntpServer = "pool.ntp.org";
 const long gmtOffset_sec = -3 * 3600;
 const int daylightOffset_sec = 0;
 
+//Variável para armazenamento das informações de pareamento.
+esp_now_peer_info_t infoPareamento;
+
 //Estrutura responsável por armazenar os dados recebidos pelos sensores dos protótipos.
 typedef struct dados_prototipo{
 
@@ -64,9 +67,9 @@ const pinos_sensores masterPin = {
 
 dados_prototipo esp[2] = {slaveOne, slaveTwo};
 
-void onDataRecv(const uint8_t *mac, const uint8_t *entradaDados, int len){
+char macStr[18];
 
-  char macStr[18];
+void onDataRecv(const uint8_t *mac, const uint8_t *entradaDados, int len){
 
   Serial.print("Pacote recebido de: ");
   snprintf(macStr, sizeof(macStr), "%02x:%02x:%02x:%02x:%02x:%02x",
@@ -147,6 +150,17 @@ void setup() {
 
   //Função para registro de callback a partir da função de recebimento de dados.
   esp_now_register_recv_cb(esp_now_recv_cb_t(onDataRecv));
+
+  //Cópia e definição das informações de pareamento.
+  memcpy(infoPareamento.peer_addr, macStr, 6);
+  infoPareamento.channel = 0;
+  infoPareamento.encrypt = false;
+
+  //Condicional para verificação de sucesso na adição de pareamento.
+  if (esp_now_add_peer(&infoPareamento) != ESP_OK){
+    Serial.println("Falha ao realizar o pareamento");
+    return;
+  }
   
   delay(10000);
 
@@ -176,29 +190,31 @@ void loop() {
         return;
       }
       //Formatação da data e hora;
-      char dataHora[20];
-      strftime(dataHora, sizeof(dataHora), "%Y-%m-%d_%H:%M:%S", &timeinfo);
+      char dataAtual[11];
+      strftime(dataAtual, sizeof(dataAtual), "%Y-%m-%d", &timeinfo);
+      char horaAtual[9];
+      strftime(horaAtual, sizeof(horaAtual), "%H:%M:%S", &timeinfo);
 
       //Criação de um objeto .json para o envio de dados.
       FirebaseJson json;
 
       //Adição dos dados do "Master" ao arquivo .json.
-      json.set("master/nivelAlto", String(master.nivelAlto) + "%");
-      json.set("master/nivelMedio", String(master.nivelMedio) + "%");
-      json.set("master/nivelBaixo", String(master.nivelBaixo) + "%");
+      json.set("master/nivelAlto", master.nivelAlto);
+      json.set("master/nivelMedio", master.nivelMedio);
+      json.set("master/nivelBaixo", master.nivelBaixo);
 
       //Adição dos dados dos "Slaves" ao arquivo .json.
       for(int i = 0; i < 2; i++){
 
         String slavePath = "slave_" + String(i+1);
-        json.set(slavePath + "/nivelAlto", String(esp[i].nivelAlto) + "%");
-        json.set(slavePath + "/nivelMedio", String(esp[i].nivelMedio) + "%");
-        json.set(slavePath + "/nivelBaixo", String(esp[i].nivelBaixo) + "%");
+        json.set(slavePath + "/nivelAlto", esp[i].nivelAlto);
+        json.set(slavePath + "/nivelMedio", esp[i].nivelMedio);
+        json.set(slavePath + "/nivelBaixo", esp[i].nivelBaixo);
         
       }
 
       //Caminho dinâmico utilizando as informações de data e hora.
-      String path = "/" + String(dataHora) + "/tipo";
+      String path = "/registros/" + String(dataAtual)+ "/" + String(horaAtual) + "/tipo";
 
       if (Firebase.setJSON(fbdo, path.c_str(), json)) {
         Serial.println(">>> SUCESSO: Dados enviados para o Realtime Database.");

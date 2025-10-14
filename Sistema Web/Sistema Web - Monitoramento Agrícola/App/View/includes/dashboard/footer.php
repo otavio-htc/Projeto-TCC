@@ -2,8 +2,8 @@
 
         <div class="d-sm-flex justify-content-center">
             <span class="text-light text-center text-sm-left d-block d-sm-inline-block">
-                Copyright © <?= date('Y'); ?> - 
-                <?= $_ENV['DEV_AUTHOR'];?> -
+                Copyright © <?= date('Y'); ?> -
+                <?= $_ENV['DEV_AUTHOR']; ?> -
                 Todos os Direitos Reservados;
             </span>
         </div>
@@ -21,11 +21,15 @@
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js">
     </script>
 
-    <script src="<?= $_ENV['BASE_URL']; ?>resources/dashboard/js/requisicoesAssincronas.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-auth-compat.js"></script>
+
+    <script src="<?= $_ENV['BASE_URL']; ?>resources/dashboard/js/scripts.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <script src="<?= $_ENV['BASE_URL']; ?>resources/dashboard/js/relatoriosGraficos.js"></script>
 
 
     </body>
