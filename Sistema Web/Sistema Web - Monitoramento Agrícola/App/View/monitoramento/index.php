@@ -122,12 +122,12 @@
                                 <button 
                                     class="nav-link active" 
                                     data-bs-toggle="tab" 
-                                    data-bs-target="#graficoRosca" 
+                                    data-bs-target="#graficoRadar" 
                                     type="button" 
                                     role="tab" 
-                                    aria-controls="graficoRosca" 
+                                    aria-controls="graficoRadar" 
                                     aria-selected="true">
-                                    Gráfico em Rosca
+                                    Registros no Mês
                                 </button>
                             </li>
                             <li class="nav-item" role="presentation">
@@ -139,7 +139,7 @@
                                     role="tab" 
                                     aria-controls="graficoLinha" 
                                     aria-selected="false">
-                                    Gráfico de Linha
+                                    Média de Umidade
                                 </button>
                             </li>
                         </ul>
@@ -148,7 +148,7 @@
                         <div class="tab-content">
                             <div 
                                 class="tab-pane fade show active" 
-                                id="graficoRosca" 
+                                id="graficoRadar" 
                                 role="tabpanel" 
                                 aria-labelledby="home-tab" 
                                 tabindex="0">
@@ -156,17 +156,17 @@
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="d-flex justify-content-center mw-50">
-                                            <canvas id="graficoSlaveUmRoscaMonitoramento"></canvas>
+                                            <canvas id="graficoSlaveUmRadarMonitoramento"></canvas>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="d-flex justify-content-center mw-50">
-                                            <canvas id="graficoMasterRoscaMonitoramento"></canvas>
+                                            <canvas id="graficoMasterRadarMonitoramento"></canvas>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="d-flex justify-content-center mw-50">
-                                            <canvas id="graficoSlaveDoisRoscaMonitoramento"></canvas>
+                                            <canvas id="graficoSlaveDoisRadarMonitoramento"></canvas>
                                         </div>
                                     </div>
                                 </div>

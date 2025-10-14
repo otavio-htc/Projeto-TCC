@@ -21,11 +21,11 @@
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js">
     </script>
 
-
+    <script src="<?= $_ENV['BASE_URL']; ?>resources/dashboard/js/requisicoesAssincronas.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <script src="<?= $_ENV['BASE_URL']; ?>resources/dashboard/js/scripts.js"></script>
+    <script src="<?= $_ENV['BASE_URL']; ?>resources/dashboard/js/relatoriosGraficos.js"></script>
 
 
     </body>
