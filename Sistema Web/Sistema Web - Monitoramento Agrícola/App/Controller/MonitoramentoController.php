@@ -7,6 +7,7 @@
     class MonitoramentoController extends Action{
 
 
+        // Método responsável por renderizar a página principal.
         public function dashboard()
         {
 

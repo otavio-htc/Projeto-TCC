@@ -1,6 +1,6 @@
 <?php
 
-//Carrega a Dashboard de Alunos
+// Carrega a Dashboard de Monitoramento.
 $routes['dashboard_render'] = [
     'route' => '/',
     'controller' => 'MonitoramentoController',
